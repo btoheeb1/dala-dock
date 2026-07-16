@@ -90,6 +90,32 @@ See `configs/nersc.yaml` for the account/partition/module settings.
 
 ---
 
+## Exercises (student homework)
+
+Do these in the **"Your turn"** section at the end of `notebooks/docking_demo.ipynb`.
+
+**Tier 1 — Interpret + validate**
+- From the leaderboard, which terminus binds tightest? Does the order match the resistance
+  story (native **D-Ala-D-Ala** tighter than resistant **D-Ala-D-Lac** / **D-Ala-D-Ser**)?
+- In Stage 4b, how many poses fall in the *best* cluster? What does a large low-energy
+  cluster tell you about confidence?
+- **Validate:** overlay the best docked pose with the crystal reference (`data/dala_ref.pdb`)
+  and check it lands in the real pocket. Then argue: why is *binding* necessary but not
+  sufficient for an antibiotic?
+
+**Tier 2 — Tweak the parameters**
+- Increase the number of poses (`n_poses` for Vina, `nrun` for AutoDock-GPU) and
+  `exhaustiveness`. Does the top pose or its cluster change? Note the runtime — that's the
+  **quality-vs-cost trade-off** at the heart of HPC.
+
+**Tier 3 — Add & screen candidates**
+- Add your own molecule(s) to `data/candidates.csv` (find real SMILES on
+  [PubChem](https://pubchem.ncbi.nlm.nih.gov) and record the CID). Predict, then test.
+- **Scale up:** screen the ~50 PubChem-verified molecules in `data/candidates_scan.csv`
+  and build the leaderboard. Which terminal residues does vancomycin tolerate?
+
+---
+
 ## Using your own receptor / candidates
 
 The pipeline is general:
@@ -116,6 +142,23 @@ data/1FVM.pdb              cached structure (works with no internet on compute n
 src/daladock/              the pipeline (one module per stage) + viz helpers
 notebooks/docking_demo.ipynb   the interactive tutorial
 ```
+
+## Data & attribution
+
+- **Receptor + reference ligand:** vancomycin and the bound D-Ala-D-Ala come from
+  **RCSB PDB entry [1FVM](https://www.rcsb.org/structure/1FVM)** (1.8 Å complex of vancomycin
+  with di-acetyl-Lys-D-Ala-D-Ala), downloaded from
+  https://files.rcsb.org/download/1FVM.pdb (cached in `data/1FVM.pdb`).
+  Citation: Nitanai Y, Kikuchi T, Kakoi K, Hanamaki S, Fujisawa I, Aoki K.
+  *"Crystal Structures of the Complexes between Vancomycin and Cell-Wall Precursor Analogs."*
+  **J. Mol. Biol.** 385(5):1422–1442 (2009). doi:10.1016/j.jmb.2008.10.026 (PMID 18976660).
+- **Candidate molecules:** sourced from **PubChem** (https://pubchem.ncbi.nlm.nih.gov).
+  Every row in `data/candidates.csv` and `data/candidates_scan.csv` records the molecule's
+  **PubChem CID, InChIKey, and source URL** — nothing is hand-fabricated. 3D coordinates are
+  generated from those SMILES with RDKit at run time.
+- RCSB PDB and PubChem data are freely available for research and education.
+
+---
 
 ## Caveats to teach
 - Empirical scoring → **trends are more trustworthy than absolute kcal/mol**.

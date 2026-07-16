@@ -117,6 +117,27 @@ def view_pose_n(receptor, poses_pdbqt, n=1, label=None, width=720, height=520,
     return v
 
 
+def view_pose_vs_reference(receptor, poses_pdbqt, ref_pdb, pose=1,
+                           width=760, height=560, receptor_style="auto"):
+    """Overlay a docked pose (orange) with a known reference ligand (green) in the
+    receptor - a visual validation that docking landed in the right place."""
+    rec_pdb = _to_pdb(receptor)
+    v = py3Dmol.view(width=width, height=height)
+    v.addModel(rec_pdb, "pdb")
+    if receptor_style == "auto":
+        receptor_style = "cartoon" if _has_protein(rec_pdb) else "stick"
+    if receptor_style == "cartoon":
+        v.setStyle({"cartoon": {"color": "lightgray"}})
+    else:
+        v.setStyle({"stick": {"colorscheme": "grayCarbon", "radius": 0.08}})
+    v.addModel(_split_models(poses_pdbqt)[max(1, int(pose)) - 1], "pdb")   # docked pose
+    v.setStyle({"model": -1}, {"stick": {"colorscheme": "orangeCarbon", "radius": 0.2}})
+    v.addModel(_to_pdb(ref_pdb), "pdb")                                    # reference
+    v.setStyle({"model": -1}, {"stick": {"colorscheme": "greenCarbon", "radius": 0.2}})
+    v.zoomTo({"model": -1})
+    return v
+
+
 def view_complex(receptor, pose, width=700, height=520, receptor_style="auto",
                  surface=False, pose_color="orangeCarbon"):
     rec_pdb = _to_pdb(receptor)
