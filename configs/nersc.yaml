@@ -1,0 +1,20 @@
+# NERSC Perlmutter configuration.
+# Fill in <N> with your project number under m4833 (from the coordinator).
+cluster: NERSC-Perlmutter
+scheduler: slurm
+account: m4833            # GPU jobs may need the "_g" variant, e.g. m4833_g (confirm on Perlmutter)
+gpu_constraint: gpu      # Perlmutter: sbatch/salloc -C gpu
+gpu_qos: interactive     # e.g. -q interactive for short interactive GPU work
+gpu_vendor: nvidia       # A100 (compute capability 8.0 / sm_80)
+# shared project storage (Community File System) - env + AutoDock-GPU live here:
+project_root: "$CFS/m4833/projects/project<N>"
+conda_env: "$CFS/m4833/projects/project<N>/env"
+adgpu_binary: "$CFS/m4833/projects/project<N>/AutoDock-GPU/bin/autodock_gpu_128wi"
+# modules to load before building/using the GPU engine on Perlmutter:
+modules:
+  - gpu
+  - cudatoolkit
+  - gcc            # a gcc in the 9-12 range for AutoDock-GPU's C++17 host code
+# interactive GPU allocation example:
+#   salloc -A m4833_g -C gpu -q interactive -t 60 -N 1 --gpus 1
+# students, however, just use https://jupyter.nersc.gov (Perlmutter GPU node).

@@ -1,0 +1,30 @@
+# Shared conda environment for NERSC Perlmutter (also fine on other Linux GPU clusters).
+# Built ONCE into the project's CFS directory so all students share it, e.g.:
+#   module load python
+#   conda env create -f environment_nersc.yml \
+#       --prefix $CFS/m4833/projects/project<N>/env
+# Adds autogrid (needed by the AutoDock-GPU engine) and fpocket (pocket detection),
+# and lists scipy + gemmi explicitly (Meeko needs them; pip did not always pull them).
+# ipykernel is included so this env can be exposed as a Jupyter kernel on jupyter.nersc.gov.
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - rdkit
+  - openbabel
+  - vina
+  - autogrid
+  - fpocket
+  - numpy
+  - scipy
+  - gemmi
+  - pandas
+  - matplotlib
+  - py3dmol
+  - jupyterlab
+  - ipykernel
+  - ipywidgets
+  - requests
+  - pip
+  - pip:
+      - meeko==0.7.1

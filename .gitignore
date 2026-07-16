@@ -1,0 +1,11 @@
+work/
+**/__pycache__/
+*.pyc
+*_download.pdb
+*.glg
+.ipynb_checkpoints/
+*_out/
+.DS_Store
+.vscode/
+env/
+*.egg-info/

@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "{resource_dir}/kernel-helper.sh",
+    "-f",
+    "{connection_file}"
+  ],
+  "display_name": "dala-dock",
+  "language": "python",
+  "metadata": {
+    "description": "Shared dala-dock docking environment (Vina + AutoDock-GPU) on Perlmutter"
+  }
+}

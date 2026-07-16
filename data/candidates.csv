@@ -1,0 +1,7 @@
+name,smiles,note
+D-Ala-D-Ala,CC(=O)N[C@H](C)C(=O)N[C@H](C)C(=O)O,native cell-wall terminus (drug-SENSITIVE)
+D-Ala-D-Lac,CC(=O)N[C@H](C)C(=O)O[C@H](C)C(=O)O,VanA/VanB RESISTANT (amide->ester)
+D-Ala-D-Ser,CC(=O)N[C@H](C)C(=O)N[C@H](CO)C(=O)O,VanC RESISTANT (bulkier -CH2OH)
+D-Ala-Gly,CC(=O)N[C@H](C)C(=O)NCC(=O)O,control: terminal methyl removed
+D-Ala-D-Val,CC(=O)N[C@H](C)C(=O)N[C@H](C(C)C)C(=O)O,control: bulkier terminal side chain
+L-Ala-D-Ala,CC(=O)N[C@@H](C)C(=O)N[C@H](C)C(=O)O,negative control: wrong stereochemistry

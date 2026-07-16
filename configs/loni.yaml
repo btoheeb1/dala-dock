@@ -1,0 +1,15 @@
+# Per-cluster configuration (used by the optional GPU/batch layer).
+# Phase A (Vina, interactive) does NOT need this; it is here for the GPU phase.
+cluster: LONI-QB4
+scheduler: slurm
+account: loni_loni_surfa
+gpu_partition: gpu2
+gpu_gres: "gpu:1"
+gpu_vendor: nvidia
+# modules to load on a compute/login node before using the GPU engine:
+modules:
+  - cuda/12.2.1
+# how to activate the docking conda env on this cluster:
+conda_activate: "source /work/$USER/docking/env.sh"
+# AutoDock-GPU binary (leave blank to auto-detect via $ADGPU / PATH):
+adgpu_binary: "/work/$USER/docking/AutoDock-GPU/bin/autodock_gpu_128wi"

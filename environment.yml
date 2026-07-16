@@ -1,0 +1,21 @@
+name: dala-dock
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - rdkit
+  - openbabel
+  - vina
+  # - fpocket   # optional (pocket auto-detection); needs macOS >=14.5. Add on Linux/newer macOS.
+  - numpy
+  - scipy
+  - gemmi
+  - pandas
+  - matplotlib
+  - py3dmol
+  - jupyterlab
+  - ipywidgets
+  - requests
+  - pip
+  - pip:
+      - meeko==0.7.1   # pinned: conda-forge osx-arm64 lags at 0.6.0 (broken CLI)
