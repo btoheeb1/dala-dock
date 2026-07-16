@@ -2,6 +2,5 @@ name,smiles,cid,inchikey,source,note
 D-Ala-D-Ala,C[C@H](C(=O)N[C@H](C)C(=O)O)N,5460362,DEFJQIDDEAULHB-QWWZWVQMSA-N,https://pubchem.ncbi.nlm.nih.gov/compound/5460362,native cell-wall terminus (drug-SENSITIVE)
 D-Ala-D-Lac,C[C@H](C(=O)O[C@H](C)C(=O)O)N,5487001,QLYOONKPELZQGZ-QWWZWVQMSA-N,https://pubchem.ncbi.nlm.nih.gov/compound/5487001,VanA/VanB RESISTANT (amide->ester)
 D-Ala-D-Ser,C[C@H](C(=O)N[C@H](CO)C(=O)O)N,1549439,IPWKGIFRRBGCJO-QWWZWVQMSA-N,https://pubchem.ncbi.nlm.nih.gov/compound/1549439,VanC RESISTANT (terminal Ser)
-D-Ala-D-Leu,C[C@H](C(=O)N[C@H](CC(C)C)C(=O)O)N,6992390,RDIKFPRVLJLMER-RNFRBKRXSA-N,https://pubchem.ncbi.nlm.nih.gov/compound/6992390,bulky terminal control
 Gly-Gly,C(C(=O)NCC(=O)O)N,11163,YMAWOPBAYDPSLA-UHFFFAOYSA-N,https://pubchem.ncbi.nlm.nih.gov/compound/11163,minimal control (no side chains)
 L-Ala-L-Ala,C[C@@H](C(=O)N[C@@H](C)C(=O)O)N,5484352,DEFJQIDDEAULHB-IMJSIDKUSA-N,https://pubchem.ncbi.nlm.nih.gov/compound/5484352,stereochemistry control (all-L)
