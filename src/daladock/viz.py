@@ -117,6 +117,78 @@ def view_pose_n(receptor, poses_pdbqt, n=1, label=None, width=720, height=520,
     return v
 
 
+def _no_atoms(lines):
+    """Electronegative (N/O) heavy atoms -> list of (x,y,z); H-bond donors/acceptors."""
+    out = []
+    for l in lines:
+        if l[:6].strip() in ("ATOM", "HETATM"):
+            t = l[77:79].strip()
+            if t[:1] in ("N", "O"):
+                out.append((float(l[30:38]), float(l[38:46]), float(l[46:54])))
+    return out
+
+
+def _model_lines(poses_pdbqt, n):
+    """ATOM/HETATM lines of the n-th pose (1-indexed) from a multi-model file."""
+    models, cur = [], []
+    for l in open(poses_pdbqt):
+        if l.startswith("MODEL"):
+            cur = []
+        elif l.startswith("ENDMDL"):
+            if cur:
+                models.append(cur); cur = []
+        elif l[:6].strip() in ("ATOM", "HETATM"):
+            cur.append(l)
+    if cur:
+        models.append(cur)
+    if not models:
+        models = [[l for l in open(poses_pdbqt) if l[:6].strip() in ("ATOM", "HETATM")]]
+    return models[max(1, min(int(n), len(models))) - 1]
+
+
+def view_hbonds(receptor, poses_pdbqt, pose=1, cutoff=3.5, min_dist=2.4,
+                width=800, height=600, receptor_style="stick"):
+    """Show a docked pose with candidate<->receptor hydrogen bonds as dashed lines.
+
+    H-bonds are estimated the common quick way: pairs of electronegative atoms
+    (N/O on the ligand and N/O on the receptor) whose distance falls in the
+    H-bonding range (~2.4-3.5 A). These dashed lines are the *non-covalent*
+    interactions that hold the candidate in the pocket - not chemical bonds.
+    """
+    import math
+    rec_lines = [l for l in open(receptor) if l[:6].strip() in ("ATOM", "HETATM")]
+    lig_lines = _model_lines(poses_pdbqt, pose)
+    rec_no, lig_no = _no_atoms(rec_lines), _no_atoms(lig_lines)
+
+    v = py3Dmol.view(width=width, height=height)
+    v.addModel(_to_pdb(receptor), "pdb")
+    if receptor_style == "surface":
+        v.setStyle({"stick": {"colorscheme": "grayCarbon", "radius": 0.08}})
+        v.addSurface(py3Dmol.VDW, {"opacity": 0.4, "color": "white"})
+    else:
+        v.setStyle({"stick": {"colorscheme": "grayCarbon", "radius": 0.1}})
+    v.addModel(_split_models(poses_pdbqt)[max(1, int(pose)) - 1], "pdb")
+    v.setStyle({"model": -1}, {"stick": {"colorscheme": "orangeCarbon", "radius": 0.2}})
+
+    n = 0
+    for lx, ly, lz in lig_no:
+        for rx, ry, rz in rec_no:
+            d = math.dist((lx, ly, lz), (rx, ry, rz))
+            if min_dist <= d <= cutoff:
+                v.addCylinder({"start": {"x": lx, "y": ly, "z": lz},
+                               "end": {"x": rx, "y": ry, "z": rz},
+                               "radius": 0.06, "color": "yellow",
+                               "dashed": True, "fromCap": 1, "toCap": 1})
+                v.addLabel(f"{d:.1f}", {"position": {"x": (lx + rx) / 2,
+                                        "y": (ly + ry) / 2, "z": (lz + rz) / 2},
+                                        "fontSize": 10, "fontColor": "black",
+                                        "backgroundColor": "white", "backgroundOpacity": 0.6})
+                n += 1
+    print(f"  {n} candidate<->receptor H-bond contacts (<= {cutoff} A) shown as dashed lines")
+    v.zoomTo({"model": -1})
+    return v
+
+
 def view_pose_vs_reference(receptor, poses_pdbqt, ref_pdb, pose=1,
                            width=760, height=560, receptor_style="auto"):
     """Overlay a docked pose (orange) with a known reference ligand (green) in the
