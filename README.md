@@ -21,7 +21,7 @@ You do **not** install anything — a shared environment is provided.
 2. Open a terminal in Jupyter and clone the repo into your space:
    ```bash
    cd $SCRATCH        # or your preferred directory
-   git clone https://github.com/<your-username>/dala-dock.git
+   git clone https://github.com/btoheeb1/dala-dock.git
    cd dala-dock
    ```
 3. Open `notebooks/docking_demo.ipynb`.
@@ -51,7 +51,7 @@ Edit `data/candidates.csv` to try your own molecules.
 ## Run it on your own laptop (no GPU, uses Vina)
 
 ```bash
-git clone https://github.com/<your-username>/dala-dock.git
+git clone https://github.com/btoheeb1/dala-dock.git
 cd dala-dock
 conda env create -f environment.yml        # laptop env (Vina, CPU)
 conda activate dala-dock
