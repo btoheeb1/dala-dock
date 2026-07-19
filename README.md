@@ -158,10 +158,3 @@ notebooks/docking_demo.ipynb   the interactive tutorial
   generated from those SMILES with RDKit at run time.
 - RCSB PDB and PubChem data are freely available for research and education.
 
----
-
-## Caveats to teach
-- Empirical scoring → **trends are more trustworthy than absolute kcal/mol**.
-- Docking predicts **binding**, not antibiotic efficacy (binding is necessary, not sufficient).
-- Vina and AutoDock-GPU use different scoring functions — compare rankings within one engine.
-- Automatic pocket detection can pick the wrong cavity — always sanity-check the box.
