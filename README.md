@@ -157,4 +157,3 @@ notebooks/docking_demo.ipynb   the interactive tutorial
   **PubChem CID, InChIKey, and source URL** — nothing is hand-fabricated. 3D coordinates are
   generated from those SMILES with RDKit at run time.
 - RCSB PDB and PubChem data are freely available for research and education.
-
