@@ -1,9 +1,8 @@
 # dala-dock
 
-An interactive teaching pipeline for **molecular docking**, built around a real story:
-**why the antibiotic vancomycin stops working against resistant bacteria.**
+An interactive teaching pipeline for **molecular docking**.
 
-You dock small peptide "candidates" into vancomycin and watch, stage by stage, why the
+You dock small peptide "candidates" (e.g **D-Ala-D-Ala**) into a target (e.g vancomycin) and watch, stage by stage, why the
 native **D-Ala-D-Ala** cell-wall terminus binds tightly while the resistant
 **D-Ala-D-Lac** variant does not.
 
@@ -59,36 +58,6 @@ jupyter lab notebooks/docking_demo.ipynb
 ```
 Same notebook; cell 1 prints `engine ... vina`. Scores differ from AutoDock-GPU (different
 scoring functions) — compare rankings *within* one engine, not absolute numbers across engines.
-
----
-
-## For the maintainer: build the shared environment on Perlmutter
-
-Done **once** by the project owner; the coordinator then makes it available to participants.
-
-1. Clone the repo on Perlmutter and edit the project number in
-   `scripts/build_on_perlmutter.sh` and `kernels/dala-dock/kernel-helper.sh`
-   (`$CFS/m4833/projects/project<N>`).
-2. Build the shared env + AutoDock-GPU into CFS:
-   ```bash
-   bash scripts/build_on_perlmutter.sh
-   ```
-   This creates `$CFS/m4833/projects/project<N>/env` and builds AutoDock-GPU for the A100.
-   It prints the `PROJECT_ROOT` and `DALADOCK_CUDA_LIB` values for the kernel.
-3. Put those values into `kernels/dala-dock/kernel-helper.sh`, then register the kernel:
-   ```bash
-   mkdir -p $HOME/.local/share/jupyter/kernels/dala-dock
-   cp kernels/dala-dock/kernel.json kernels/dala-dock/kernel-helper.sh \
-      $HOME/.local/share/jupyter/kernels/dala-dock/
-   chmod +x $HOME/.local/share/jupyter/kernels/dala-dock/kernel-helper.sh
-   ```
-4. Test `notebooks/docking_demo.ipynb` on jupyter.nersc.gov (Perlmutter GPU) with the
-   `dala-dock` kernel, then share the env path (`$CFS/m4833/projects/project<N>/env`)
-   with the coordinator.
-
-See `configs/nersc.yaml` for the account/partition/module settings.
-
----
 
 ## Exercises (student homework)
 
@@ -157,3 +126,5 @@ notebooks/docking_demo.ipynb   the interactive tutorial
   **PubChem CID, InChIKey, and source URL** — nothing is hand-fabricated. 3D coordinates are
   generated from those SMILES with RDKit at run time.
 - RCSB PDB and PubChem data are freely available for research and education.
+
+
