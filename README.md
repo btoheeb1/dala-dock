@@ -98,6 +98,63 @@ lands within ~2 Å of the crystal before trusting scores on new molecules.
 
 ---
 
+## To use the molecular docking tool on ChemGraph
+
+The same docking is available inside
+[ChemGraph](https://github.com/argonne-lcf/ChemGraph), Argonne's agentic framework: you
+ask in plain English and it runs the docking for you through the `molecular_docking`
+workflow.
+
+### Install
+
+**Option A — conda (recommended):**
+```bash
+git clone https://github.com/argonne-lcf/ChemGraph
+cd ChemGraph
+conda env create -f environment.yml
+conda activate chemgraph
+pip install -e ".[docking]"
+conda install -c conda-forge vina
+export OPENAI_API_KEY="your_key"
+```
+
+**Option B — venv:**
+```bash
+git clone https://github.com/argonne-lcf/ChemGraph
+cd ChemGraph
+python -m venv chemgraph-env
+source chemgraph-env/bin/activate      # Windows: .\chemgraph-env\Scripts\activate
+pip install -e ".[docking]"
+conda install -c conda-forge vina
+export OPENAI_API_KEY="your_key"
+```
+
+### Run it three ways
+
+**Command line**
+```bash
+chemgraph -q "Dock aspirin into 'examples/docking/vancomycin_receptor.pdbqt' and report the best affinity." -w molecular_docking -o last_message
+```
+
+**Web app**
+```bash
+streamlit run src/ui/app.py
+```
+On the Configuration page, set the workflow to `molecular_docking`, then ask your question in the chat.
+
+**Example script**
+```bash
+python examples/docking/run_chemgraph.py
+```
+
+### What you can dock
+- **Candidate** — a SMILES, a molecule name, or a PubChem CID (e.g. `aspirin`, `2244`).
+- **Receptor** — a prepared `.pdbqt` file (a vancomycin example ships at `examples/docking/vancomycin_receptor.pdbqt`), or a SMILES/name/CID for a small molecule.
+- **Number of poses** — just say how many, e.g. "using 20 poses".
+
+---
+
+
 ## Layout
 ```
 environment.yml            laptop env (Vina, CPU)
@@ -126,5 +183,4 @@ notebooks/docking_demo.ipynb   the interactive tutorial
   **PubChem CID, InChIKey, and source URL** — nothing is hand-fabricated. 3D coordinates are
   generated from those SMILES with RDKit at run time.
 - RCSB PDB and PubChem data are freely available for research and education.
-
 
