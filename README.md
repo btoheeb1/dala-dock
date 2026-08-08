@@ -2,7 +2,7 @@
 
 An interactive teaching pipeline for **molecular docking**.
 
-You dock small peptide "candidates" (e.g **D-Ala-D-Ala**) into a target (e.g vancomycin) and watch, stage by stage, why the
+You dock small peptide "candidates" (e.g. **D-Ala-D-Ala**) into a target (e.g. **vancomycin**) and watch, stage by stage, why the
 native **D-Ala-D-Ala** cell-wall terminus binds tightly while the resistant
 **D-Ala-D-Lac** variant does not.
 
@@ -58,6 +58,8 @@ jupyter lab notebooks/docking_demo.ipynb
 ```
 Same notebook; cell 1 prints `engine ... vina`. Scores differ from AutoDock-GPU (different
 scoring functions) — compare rankings *within* one engine, not absolute numbers across engines.
+
+---
 
 ## Exercises (student homework)
 
@@ -153,21 +155,6 @@ python examples/docking/run_chemgraph.py
 - **Number of poses** — just say how many, e.g. "using 20 poses".
 
 ---
-
-
-## Layout
-```
-environment.yml            laptop env (Vina, CPU)
-environment_nersc.yml      shared HPC env (adds autogrid, fpocket, ipykernel) for CFS
-configs/nersc.yaml         Perlmutter account / partition / modules
-configs/loni.yaml          example config for another cluster
-kernels/dala-dock/         Jupyter kernel (kernel.json + helper) for the shared env
-scripts/build_on_perlmutter.sh   one-time build of the shared env + AutoDock-GPU
-data/candidates.csv        the D-Ala candidate panel (edit me)
-data/1FVM.pdb              cached structure (works with no internet on compute nodes)
-src/daladock/              the pipeline (one module per stage) + viz helpers
-notebooks/docking_demo.ipynb   the interactive tutorial
-```
 
 ## Data & attribution
 
