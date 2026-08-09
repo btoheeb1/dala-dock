@@ -116,7 +116,7 @@ cd ChemGraph
 conda env create -f environment.yml
 conda activate chemgraph
 pip install -e ".[docking]"
-conda install -c conda-forge vina
+conda install -c conda-forge vina gemmi
 export OPENAI_API_KEY="your_key"
 ```
 
