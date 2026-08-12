@@ -116,7 +116,8 @@ cd ChemGraph
 conda env create -f environment.yml
 conda activate chemgraph
 pip install -e ".[docking]"
-conda install -c conda-forge vina gemmi
+pip install nest_asyncio grandalf py3Dmol tqdm
+conda install -c conda-forge vina gemmi openbabel
 export OPENAI_API_KEY="your_key"
 ```
 
