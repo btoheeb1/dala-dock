@@ -101,7 +101,7 @@ lands within ~2 Å of the crystal before trusting scores on new molecules.
 ---
 ## To install PyMol
 
-https://www.pymol.org/
+<a href="https://www.pymol.org/">Pymol</a>
 
 ## To use the molecular docking tool on ChemGraph
 
