@@ -99,6 +99,9 @@ The pipeline is general:
 lands within ~2 Å of the crystal before trusting scores on new molecules.
 
 ---
+## To install PyMol
+
+https://www.pymol.org/
 
 ## To use the molecular docking tool on ChemGraph
 
